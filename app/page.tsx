@@ -1,10 +1,8 @@
-const page = () => {
+const Home = () => (
+  <>
+    <h1 className="h1-bold">Hello World!</h1>
+    <h1 className="h1-bold font-space-grotesk">Hello World!(inter)</h1>
+  </>
+);
 
-  return (
-    <div>
-      <h1 className="text-3xl">Hello world!</h1>
-    </div>
-  )
-}
-
-export default page
+export default Home;
