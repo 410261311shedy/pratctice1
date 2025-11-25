@@ -3,7 +3,10 @@ import localFont from "next/font/local";
 import "./globals.css";
 //ThemeProvider was defined at @/context/Theme
 import ThemeProvider from "@/context/Theme";
-import Navbar from "@/components/navigation/navbar";
+import { Toaster } from "sonner";
+import { SessionProvider } from "next-auth/react";
+import { auth } from "@/auth";
+import { ReactNode } from "react";
 
 const inter = localFont({
    src: "./fonts/interVF.ttf",
@@ -26,27 +29,31 @@ export const metadata: Metadata = {
    },
 };
 
-export default function RootLayout({
-   children,
-}: Readonly<{
-   children: React.ReactNode;
-}>) {
+//cuz we using await so the function is gonna be a async function
+const RootLayout = async ({ children }: { children: ReactNode }) => {
+   const session = await auth();
    return (
-      <html lang="en">
+      <html lang="en" suppressHydrationWarning>
          <body /*set inter as className make it defalut font for the app*/
             className={`${inter.className} ${spaceGrotesk.variable} antialiased`}
          >
-            {/*wrapped the children between ThemeProvider to make sure the theme aplly ot all pages*/}
-            <ThemeProvider
-               attribute="class"
-               defaultTheme="system"
-               enableSystem
-               disableTransitionOnChange
-            >
-               <Navbar />
-               {children}
-            </ThemeProvider>
+            {/*pass the session to the session provider, saying session is equal to session*/}
+            {/*正確做法：SessionProvider 包裹在 <body> 內部*/}
+            <SessionProvider session={session}>
+               {/*wrapped the children between ThemeProvider to make sure the theme aplly ot all pages*/}
+               <ThemeProvider
+                  attribute="class"
+                  defaultTheme="system"
+                  enableSystem
+                  disableTransitionOnChange
+               >
+                  {children}
+                  <Toaster />
+               </ThemeProvider>
+            </SessionProvider>
          </body>
       </html>
    );
-}
+};
+
+export default RootLayout;
