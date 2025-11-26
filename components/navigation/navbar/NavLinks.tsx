@@ -4,10 +4,8 @@ import { sidebarLinks } from "@/constants";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-import path from "path";
 import React from "react";
 import { cn } from "@/lib/utils";
-import { is } from "zod/v4/locales";
 import { SheetClose } from "@/components/ui/sheet";
 
 //set the isMobileNav to default false, which means that
@@ -26,6 +24,12 @@ const NavLinks = ({ isMobileNav = false }: { isMobileNav?: boolean }) => {
                pathname === item.route;
             //every client has it's own profile route depends on its userId, make profile a dynamic route
             if (item.route === "/profile") {
+               if (userId) {
+                  item.route = `${item.route}/${userId}`;
+               } else {
+                  return null;
+               }
+            } else if (item.route === "/tags") {
                if (userId) {
                   item.route = `${item.route}/${userId}`;
                } else {
