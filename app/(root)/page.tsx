@@ -1,9 +1,9 @@
+import QuestionCard from "@/components/cards/QuestionCard";
 import HomeFilter from "@/components/filters/HomeFilter";
 import LocalSearch from "@/components/search/LocalSearch";
 import { Button } from "@/components/ui/button";
 import ROUTES from "@/constants/routes";
 import Link from "next/link";
-import { toLowerCase } from "zod";
 
 const questions = [
    {
@@ -14,10 +14,14 @@ const questions = [
          { _id: "1", name: "React" },
          { _id: "2", name: "Javascript" },
       ],
-      author: { _id: "1", name: "Jogn Doe" },
+      author: {
+         _id: "1",
+         name: "Jogn Doe",
+         image: "https://img.freepik.com/premium-vector/young-man-avatar-character-due-avatar-man-vector-icon-cartoon-illustration_1186924-4438.jpg?semt=ais_hybrid&w=740&q=80",
+      },
       upvotes: 10,
-      ansers: 5,
-      view: 100,
+      answers: 5,
+      views: 100,
       createdAt: new Date(),
    },
    {
@@ -28,11 +32,15 @@ const questions = [
          { _id: "1", name: "Javascript" },
          { _id: "2", name: "Javascript" },
       ],
-      author: { _id: "1", name: "Jogn Doe" },
+      author: {
+         _id: "1",
+         name: "Jogn Doe",
+         image: "https://png.pngtree.com/png-clipart/20230927/original/pngtree-man-avatar-image-for-profile-png-image_13001877.png",
+      },
       upvotes: 10,
-      ansers: 5,
-      view: 100,
-      createdAt: new Date(),
+      answers: 5,
+      views: 100,
+      createdAt: new Date("2022-09-01"),
    },
 ];
 interface SearchParams {
@@ -83,7 +91,7 @@ const Home = async ({ searchParams }: SearchParams) => {
          {/* div for question cards */}
          <div className="mt-10 flex w-full flex-col gap-6">
             {filterQuestions.map((question) => (
-               <h1 key={question._id}>{question.title}</h1>
+               <QuestionCard key={question._id} question={question} />
             ))}
          </div>
       </>
