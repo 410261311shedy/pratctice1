@@ -1,7 +1,10 @@
+import HomeFilter from "@/components/filters/HomeFilter";
 import LocalSearch from "@/components/search/LocalSearch";
 import { Button } from "@/components/ui/button";
 import ROUTES from "@/constants/routes";
 import Link from "next/link";
+import { toLowerCase } from "zod";
+
 const questions = [
    {
       _id: "1",
@@ -9,7 +12,7 @@ const questions = [
       description: "I want to learn React, can antone help me?",
       tags: [
          { _id: "1", name: "React" },
-         { _id: "2", name: "Javascrips" },
+         { _id: "2", name: "Javascript" },
       ],
       author: { _id: "1", name: "Jogn Doe" },
       upvotes: 10,
@@ -22,8 +25,8 @@ const questions = [
       title: "How to learn JavaScript?",
       description: "I want to learn React, can antone help me?",
       tags: [
-         { _id: "1", name: "React" },
-         { _id: "2", name: "Javascrips" },
+         { _id: "1", name: "Javascript" },
+         { _id: "2", name: "Javascript" },
       ],
       author: { _id: "1", name: "Jogn Doe" },
       upvotes: 10,
@@ -39,12 +42,18 @@ interface SearchParams {
    searchParams: Promise<{ [key: string]: string }>;
 }
 const Home = async ({ searchParams }: SearchParams) => {
-   const { query = "" } = await searchParams;
+   const { query = "", filter = "" } = await searchParams;
    //now we can use the query t omodify the fetch from our db
    //e.g. const {data} = await axios.get("/api/questions",{query: {search:query} });
-   const filterQuestions = questions.filter((question) =>
-      question.title.toLocaleLowerCase().includes(query?.toLocaleLowerCase())
-   );
+   const filterQuestions = questions.filter((question) => {
+      const matchedQuery = question.title
+         .toLowerCase()
+         .includes(query.toLowerCase());
+      const matchesFilter = filter
+         ? question.tags[0].name.toLowerCase() === filter.toLowerCase()
+         : true;
+      return matchedQuery && matchesFilter;
+   });
    return (
       <>
          {/* section for Title and button */}
@@ -70,7 +79,7 @@ const Home = async ({ searchParams }: SearchParams) => {
                otherClasses="flex-1"
             />
          </section>
-         {/* HomeFilter */}
+         <HomeFilter />
          {/* div for question cards */}
          <div className="mt-10 flex w-full flex-col gap-6">
             {filterQuestions.map((question) => (
