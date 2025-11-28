@@ -4,7 +4,6 @@ import React from "react";
 import { Badge } from "../ui/badge";
 import { getDeviconClassName } from "@/lib/utils";
 import { Content } from "@radix-ui/react-dropdown-menu";
-import { Button } from "@mdxeditor/editor";
 import Image from "next/image";
 
 // "?" means it is optional to use or not
