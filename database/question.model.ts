@@ -18,10 +18,13 @@ const QuestionSchema = new Schema<IQuestion>(
       content: { type: String, required: true },
       //tags is an "array" of references, ref to tag collection
       tags: [{ type: Schema.Types.ObjectId, ref: "Tag" }],
+      //Setting default values
+      //ensures that the algorithm can function properly from the start.
       views: { type: Number, default: 0 },
       answers: { type: Number, default: 0 },
       upvotes: { type: Number, default: 0 },
       downvotes: { type: Number, default: 0 },
+      //enforce every question has to have an user
       author: { type: Schema.Types.ObjectId, ref: "User", required: true },
    },
    { timestamps: true }
