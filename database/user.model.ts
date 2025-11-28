@@ -6,19 +6,19 @@ export interface IUser {
    username: string;
    email: string;
    bio?: string;
-   image: string;
-   locations?: string;
+   image?: string;
+   location?: string;
    portfolio?: string;
-   reputation?: string;
+   reputation?: number;
 }
 
-const UserSchema = new Schema(
+const UserSchema = new Schema<IUser>(
    {
       name: { type: String, required: true },
-      username: { type: String, required: true },
+      username: { type: String, required: true, unique: true },
       email: { type: String, required: true, unique: true },
       bio: { type: String },
-      image: { type: String, required: true }, //URL
+      image: { type: String }, //URL
       location: { type: String },
       portfolio: { type: String },
       reputation: { type: Number, default: 0 },
@@ -28,6 +28,6 @@ const UserSchema = new Schema(
 
 //give the user a name like user, and them pass the user schema right into it
 ///checl if models user already exist then use that, else create a new model
-const User = models?.user || model("User", UserSchema);
+const User = models?.User || model<IUser>("User", UserSchema);
 
 export default User;
