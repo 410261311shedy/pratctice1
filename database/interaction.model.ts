@@ -11,8 +11,8 @@ export interface IInteraction {
 const InteractionSchema = new Schema<IInteraction>(
    {
       user: { type: Schema.Types.ObjectId, ref: "User", required: true },
-      action: { type: String, required: true },
-      actionId: { type: Schema.Types.ObjectId, required: true }, //question,answer,user,view
+      action: { type: String, required: true }, //upvote,downvote,question,answer,user,view.etc
+      actionId: { type: Schema.Types.ObjectId, required: true }, //question/answer/user ID
       actionType: {
          type: String,
          enum: ["question", "answer"],

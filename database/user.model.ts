@@ -1,4 +1,4 @@
-import { model, models, Schema } from "mongoose";
+import { model, models, Schema, Document } from "mongoose";
 
 //tell us which fields do we need, and make sure it accept proper TS types
 export interface IUser {
@@ -11,7 +11,10 @@ export interface IUser {
    portfolio?: string;
    reputation?: number;
 }
-
+//Mongoose-specific fields like _id and timestamps that auto genertated
+//For we can access fields like _id or id or
+// any virtual methods provided by Mongoose on any kind of model
+export interface IUserDoc extends IUser, Document {}
 const UserSchema = new Schema<IUser>(
    {
       name: { type: String, required: true },

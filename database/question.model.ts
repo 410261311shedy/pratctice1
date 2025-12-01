@@ -1,4 +1,4 @@
-import { model, models, Schema, Types } from "mongoose";
+import { model, models, Schema, Types, Document } from "mongoose";
 
 //Types.ObjectId is from mongoose
 export interface IQuestion {
@@ -11,6 +11,7 @@ export interface IQuestion {
    downvotes: number;
    author: Types.ObjectId;
 }
+export interface IQuestionDoc extends IQuestion, Document {}
 const QuestionSchema = new Schema<IQuestion>(
    {
       //set userId is the reference to User

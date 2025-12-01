@@ -1,11 +1,12 @@
 //連接tag跟question來看一個tag裡面有被多少question引用
-import { model, models, Schema, Types } from "mongoose";
+import { model, models, Schema, Types, Document } from "mongoose";
 
 //Types.ObjectId is from mongoose
 export interface ITagQuestion {
    tag: Types.ObjectId;
    question: Types.ObjectId;
 }
+export interface ITagQuestionDoc extends ITagQuestion, Document {}
 const TagQuestionSchema = new Schema<ITagQuestion>(
    {
       tag: { type: Schema.Types.ObjectId, ref: "Tag", required: true },

@@ -43,6 +43,17 @@ const questions = [
       createdAt: new Date("2022-09-01"),
    },
 ];
+// const test = async () => {
+//    try {
+//       throw new ValidationError({
+//          title: ["Required"],
+//          tags: ['"js" is not a valid tag'],
+//       });
+//    } catch (error) {
+//       return handleError(error);
+//    }
+// }; //for testing the handle-errors functions
+
 interface SearchParams {
    //new in next js , you have to await search params
    //Promise will return an object key of type string which contains a specific string value
@@ -50,6 +61,8 @@ interface SearchParams {
    searchParams: Promise<{ [key: string]: string }>;
 }
 const Home = async ({ searchParams }: SearchParams) => {
+   // const result = await test();
+   // console.log(result);
    const { query = "", filter = "" } = await searchParams;
    //now we can use the query t omodify the fetch from our db
    //e.g. const {data} = await axios.get("/api/questions",{query: {search:query} });

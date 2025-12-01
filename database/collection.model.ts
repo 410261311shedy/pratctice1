@@ -1,11 +1,11 @@
-import { model, models, Schema, Types } from "mongoose";
+import { model, models, Schema, Types, Document } from "mongoose";
 
 //Types.ObjectId is from mongoose
 export interface Icollection {
    author: Types.ObjectId;
    question: Types.ObjectId;
 }
-
+export interface IcollectionDoc extends Icollection, Document {}
 const collectionSchema = new Schema<Icollection>(
    {
       //who is adding it to the collection
