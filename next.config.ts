@@ -1,8 +1,11 @@
 import type { NextConfig } from "next";
+import pino from "pino";
 
 const nextConfig: NextConfig = {
    /* config options here */
-   //if
+   //this tell next.js not to put these specific items in the main package,keep them separate
+   serverExternalPackages: ["pino", "pino-pretty"],
+
    images: {
       remotePatterns: [
          {

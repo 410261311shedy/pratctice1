@@ -3,6 +3,9 @@ import HomeFilter from "@/components/filters/HomeFilter";
 import LocalSearch from "@/components/search/LocalSearch";
 import { Button } from "@/components/ui/button";
 import ROUTES from "@/constants/routes";
+import handleError from "@/lib/handlers/error";
+import { ValidationError } from "@/lib/http-errors";
+import dbConnect from "@/lib/mongoose";
 import Link from "next/link";
 
 const questions = [
@@ -47,7 +50,7 @@ const questions = [
 //    try {
 //       throw new ValidationError({
 //          title: ["Required"],
-//          tags: ['"js" is not a valid tag'],
+//          tags: ['"Js" is not a valid tag.'],
 //       });
 //    } catch (error) {
 //       return handleError(error);
@@ -61,8 +64,8 @@ interface SearchParams {
    searchParams: Promise<{ [key: string]: string }>;
 }
 const Home = async ({ searchParams }: SearchParams) => {
-   // const result = await test();
-   // console.log(result);
+   // await test();
+
    const { query = "", filter = "" } = await searchParams;
    //now we can use the query t omodify the fetch from our db
    //e.g. const {data} = await axios.get("/api/questions",{query: {search:query} });
