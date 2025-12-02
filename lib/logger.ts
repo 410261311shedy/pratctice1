@@ -9,6 +9,7 @@ const logger = pino({
    transport:
       !isEdge && !isProduction
          ? {
+              //make output from Node.js logger to human readable
               target: "pino-pretty",
               options: {
                  colorize: true,

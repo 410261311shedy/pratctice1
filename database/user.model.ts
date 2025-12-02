@@ -1,6 +1,6 @@
 import { model, models, Schema, Document } from "mongoose";
 
-//tell us which fields do we need, and make sure it accept proper TS types
+//tell developer which fields do we need, and make sure it accept proper TS types
 export interface IUser {
    name: string;
    username: string;
